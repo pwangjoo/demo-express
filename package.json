@@ -2,12 +2,20 @@
   "name": "demo-express",
   "version": "0.0.0",
   "private": true,
+  "config": {
+    "port": 3000
+  },
   "scripts": {
     "start": "babel-node ./bin/www",
-    "debug": "DEBUG=www:* MODE=development nodemon --delay 2 --exec babel-node ./bin/www",
-    "dev": "MODE=development babel-node ./bin/www",
-    "stag": "MODE=staging babel-node ./bin/www",
-    "prod": "MODE=production babel-node ./bin/www"
+    "debug": "DEBUG=www:* MODE=development PORT=$npm_package_config_port nodemon --delay 2 --exec babel-node ./bin/www",
+    "dev": "MODE=development PORT=$npm_package_config_port babel-node ./bin/www",
+    "stag": "MODE=staging PORT=$npm_package_config_port babel-node ./bin/www",
+    "prod": "MODE=production PORT=$npm_package_config_port babel-node ./bin/www",
+    "ts-build": "tsc -p .",
+    "ts-debug": "DEBUG=www:* MODE=development PORT=$npm_package_config_port nodemon --delay 2 --exec ts-node ./app.ts",
+    "ts-dev": "MODE=development PORT=$npm_package_config_port node ./dist/app.js",
+    "ts-stag": "MODE=staging PORT=$npm_package_config_port node ./dist/app.js",
+    "ts-prod": "MODE=production PORT=$npm_package_config_port node ./dist/app.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -21,7 +29,13 @@
     "@babel/cli": "^7.23.9",
     "@babel/core": "^7.24.0",
     "@babel/node": "^7.23.9",
-    "@babel/preset-env": "^7.24.0"
+    "@babel/preset-env": "^7.24.0",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/express": "^4.17.21",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^20.11.27",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.2"
   },
   "babel": {
     "presets": [

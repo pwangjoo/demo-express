@@ -28,21 +28,24 @@ Express starting guide for MacOS (M1).
 ### 2. Easy start
 1. Install `nodemon`.
     ```zsh
-    % npm i -D nodemon #add dev dependencies
+    % npm i -D nodemon
     ```
-1. Add `ES6` compatibility
+1. Add `ES6` compatibility.
     ```zsh
     % npm i -D @babel/core @babel/cli @babel/node @babel/preset-env
     ```
-1. Add scripts to `package.json`.
+1. Modify `package.json`.
     ```json
     {
+      "config": {
+        "port": 3000
+      },
       "scripts": {
         "start": "babel-node ./bin/www",
-        "debug": "DEBUG=www:* MODE=development nodemon --delay 2 --exec babel-node ./bin/www",
-        "dev": "MODE=development babel-node ./bin/www",
-        "stag": "MODE=staging babel-node ./bin/www",
-        "prod": "MODE=production babel-node ./bin/www"
+        "debug": "DEBUG=www:* MODE=development nodemon PORT=$npm_package_config_port --delay 2 --exec babel-node ./bin/www",
+        "dev": "MODE=development PORT=$npm_package_config_port babel-node ./bin/www",
+        "stag": "MODE=staging PORT=$npm_package_config_port babel-node ./bin/www",
+        "prod": "MODE=production PORT=$npm_package_config_port babel-node ./bin/www"
       },
       "babel": {
         "presets": [
@@ -54,8 +57,20 @@ Express starting guide for MacOS (M1).
 1. Add `MODE`, `DEBUG` to `app.js`.
     ```js
     const { MODE, DEBUG } = process.env;
-
+    {...}
     if (MODE === 'development') app.use(logger('dev'));
+    ```
+
+1. (Only backend) Remove `public` folder, and modify `render` to `send`.
+    ```js
+    // before
+    router.get('/', function(req, res, next) {
+      res.render('index', { title: 'Express' });
+    });
+    // after
+    router.get('/', function(req, res, next) {
+      res.send('Home Page');
+    });
     ```
 
 ## Running
@@ -100,7 +115,7 @@ Express starting guide for MacOS (M1).
     ```js
     import createError from 'http-errors';
     import 'express-async-errors';
-
+    {...}
     app.use(async (err, req, res, next)=> {
       // development
       res.locals.message = err.message;
@@ -116,3 +131,49 @@ Express starting guide for MacOS (M1).
       res.sendStatus(err.status || 500);
     });
     ```
+
+## TypeScript Support
+### 1. Installation
+```zsh
+% npm i -D typescript @types/express @types/node ts-node
+% npm i -D @types/morgan @types/cookie-parser
+```
+### 2. Initializing
+1. Generate `tsconfig.json`.
+    ```zsh
+    % npx tsc --init #generates tsconfig.json
+    ```
+1. Modify `tsconfig.json`.
+    ```json
+    {
+      "rootDir": "./",
+      "moduleResolution": "node",
+      "outDir": "./dist",
+      "removeComments": true,
+      {...}
+    }
+    ```
+1. Modify `package.json`.
+    ```json
+    {
+      "scripts": {
+        {...},
+        "ts-build": "tsc -p .",
+        "ts-debug": "DEBUG=www:* MODE=development PORT=$npm_package_config_port nodemon --delay 2 --exec ts-node ./app.ts",
+        "ts-dev": "MODE=development PORT=$npm_package_config_port node ./dist/app.js",
+        "ts-stag": "MODE=staging PORT=$npm_package_config_port node ./dist/app.js",
+        "ts-prod": "MODE=production PORT=$npm_package_config_port node ./dist/app.js"
+      }
+    }
+    ```
+
+### 3. Running
+```zsh
+% npm run ts-debug #development & debug mode
+% npm run ts-build #build
+% npm run ts-dev #development mode
+% npm run ts-stag #staging mode
+% npm run ts-prod #production mode
+
+% pm2 start npm --name [NAME] --time -- run ts-prod
+```

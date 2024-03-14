@@ -1,7 +1,7 @@
 /**
  * Basic imports.
  */
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
@@ -9,7 +9,7 @@ import createError from 'http-errors';
 import 'express-async-errors';
 
 const app = express();
-const { MODE, DEBUG } = process.env;
+const { MODE, DEBUG, PORT } = process.env;
 
 if (MODE === 'development') app.use(logger('dev'));
 app.use(express.json());
@@ -20,18 +20,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 /**
  * Routers.
  */
-import indexRouter from './routes/v1/index';
-import usersRouter from './routes/v1/users';
+import indexRouter from './routes/v2/index';
+import usersRouter from './routes/v2/users';
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use(async (req, res, next)=> {
+app.use(async (_req: Request, _res: Response, next: NextFunction)=> {
   next(createError(404));
 });
 
 /**
  * Error handler.
  */
-app.use(async (err, req, res, next)=> {
+app.use(async (err: any, req: Request, res: Response, _next: NextFunction)=> {
   // development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -46,4 +46,8 @@ app.use(async (err, req, res, next)=> {
   res.sendStatus(err.status || 500);
 });
 
-module.exports = app;
+
+/**
+ * Init server.
+ */
+app.listen(PORT);
