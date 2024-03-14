@@ -14,7 +14,7 @@ Express starting guide for MacOS (M1).
 ## Installation
 ### 1. Using `express-generator`
 ```zsh
-% npm i -g express-generator #install express template generator
+% npm i -g express-generator
 % express -h #shows template guide for express
 ```
 
@@ -23,7 +23,7 @@ Express starting guide for MacOS (M1).
 ```zsh
 % express --no-view --git [APPNAME] #generate backend server
 % express --ejs --view=ejs --git [APPNAME] #generate full-stack server (with ejs)
-% cd [APPNAME] && npm i && git init #install
+% cd [APPNAME] && npm i && git init
 ```
 ### 2. Easy start
 1. Install `nodemon`.
@@ -141,7 +141,7 @@ Express starting guide for MacOS (M1).
 ### 2. Initializing
 1. Generate `tsconfig.json`.
     ```zsh
-    % npx tsc --init #generates tsconfig.json
+    % npx tsc --init
     ```
 1. Modify `tsconfig.json`.
     ```json
