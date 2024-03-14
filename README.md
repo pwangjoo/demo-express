@@ -32,7 +32,7 @@ Express starting guide for MacOS (M1).
     ```
 1. Add `ES6` compatibility
     ```zsh
-    % npm i -D @babel/core @babel/cli @babel/node @babel/preset-env babel-loader
+    % npm i -D @babel/core @babel/cli @babel/node @babel/preset-env
     ```
 1. Add scripts to `package.json`.
     ```json
@@ -54,7 +54,7 @@ Express starting guide for MacOS (M1).
 1. Add `MODE`, `DEBUG` to `app.js`.
     ```js
     const { MODE, DEBUG } = process.env;
-    
+
     if (MODE === 'development') app.use(logger('dev'));
     ```
 
