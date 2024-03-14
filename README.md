@@ -115,7 +115,7 @@ Express starting guide for MacOS (M1).
     ```js
     import createError from 'http-errors';
     import 'express-async-errors';
-    {...}
+    ...
     app.use(async (err, req, res, next)=> {
       // development
       res.locals.message = err.message;
@@ -150,14 +150,14 @@ Express starting guide for MacOS (M1).
       "moduleResolution": "node",
       "outDir": "./dist",
       "removeComments": true,
-      {...}
+      ...
     }
     ```
 1. Modify `package.json`.
     ```json
     {
       "scripts": {
-        {...},
+        ...,
         "ts-build": "tsc -p .",
         "ts-debug": "DEBUG=www:* MODE=development PORT=$npm_package_config_port nodemon --delay 2 --exec ts-node ./app.ts",
         "ts-dev": "MODE=development PORT=$npm_package_config_port node ./dist/app.js",
