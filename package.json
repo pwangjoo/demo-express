@@ -1,0 +1,18 @@
+{
+  "name": "demo-express",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "babel-node ./bin/www",
+    "debug": "DEBUG=www:* MODE=development nodemon --delay 2 --exec babel-node ./bin/www",
+    "dev": "MODE=development babel-node ./bin/www",
+    "stag": "MODE=staging babel-node ./bin/www",
+    "prod": "MODE=production babel-node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "morgan": "~1.9.1"
+  }
+}
