@@ -104,11 +104,11 @@ Express starting guide for MacOS (M1).
     ```js
     // before
     router.get('/', function(req, res, next) {
-      res.render('index', { title: 'Express' });
+      res.send('Home Page');
     });
     // after
     router.get('/', async (req, res, next)=> {
-      res.render('index', { title: 'Express' });
+      res.send('Home Page');
     });
     ```
 1. Add error handler
