@@ -64,6 +64,8 @@ Express starting guide for MacOS (M1).
 % npm run dev #development mode
 % npm run stag #staging mode
 % npm run prod #production mode
+
+% pm2 start npm --name [NAME] --time -- run prod
 ```
 
 ## Post Installation
