@@ -50,4 +50,8 @@ app.use(async (err: any, req: Request, res: Response, _next: NextFunction)=> {
 /**
  * Init server.
  */
-app.listen(PORT);
+app.listen(PORT, ()=> {
+  if (MODE === 'production') {
+    console.log(`   [ALERT] SERVER BOOTED: ${new Date().toString()}`);
+  };
+});
