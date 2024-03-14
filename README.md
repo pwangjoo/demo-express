@@ -57,7 +57,7 @@ Express starting guide for MacOS (M1).
 1. Add `MODE`, `DEBUG` to `app.js`.
     ```js
     const { MODE, DEBUG } = process.env;
-    {...}
+    ...
     if (MODE === 'development') app.use(logger('dev'));
     ```
 
@@ -157,7 +157,7 @@ Express starting guide for MacOS (M1).
     ```json
     {
       "scripts": {
-        ...,
+        ...
         "ts-build": "tsc -p .",
         "ts-debug": "DEBUG=www:* MODE=development PORT=$npm_package_config_port nodemon --delay 2 --exec ts-node ./app.ts",
         "ts-dev": "MODE=development PORT=$npm_package_config_port node ./dist/app.js",
